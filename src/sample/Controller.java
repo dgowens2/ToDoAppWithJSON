@@ -54,18 +54,6 @@ public class Controller implements Initializable {
 
         retrieveList();
 
-//        if (container != null) {
-//            for (ToDoItem item : container.ToDoContainer) {
-//                container.addToContainer(item);
-//            }
-//        }
-
-//        ToDoItemList retreievedList = retrieveList();
-
-//        for (ToDoItem item : todoItems) {
-//            todoItems.add(item);
-//        }
-
         System.out.println("For loop ran through");
 
         todoList.setItems(todoItems);
@@ -100,8 +88,6 @@ public class Controller implements Initializable {
     public void addItemOnEnter(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             System.out.println("Enter Key pressed");
-//            todoItems.add(new ToDoItem(todoText.getText()));      //This is replaced by calling the "addItem() method
-//            todoText.setText("");
             addItem();
         }
     }
@@ -140,52 +126,6 @@ public class Controller implements Initializable {
         return jsonString;
     }
 
-    public void saveJsonFile() {
-        JsonSerializer jsonSerializer = new JsonSerializer().deep(true);
-        System.out.println("json save 1");
-
-        for (ToDoItem currentItem : todoItems) {
-            container.addToContainer(currentItem);
-        }
-        System.out.println("json save 2");
-        try {
-            System.out.println("in the json try");
-            String jsonString = jsonSerializer.serialize(container);
-            File jsonFile = new File(myUsers.getUserName() + ".json");
-            FileWriter jsonWriter = new FileWriter(jsonFile);
-            jsonWriter.write(jsonString);
-            jsonWriter.close();
-            System.out.println("end of json try");
-        } catch (Exception exception) {
-            System.out.println("Exception while writing to file ...");
-        }
-    }
-
-    public ToDoItem readJsonFile(ToDoItem todoItem) {
-        try {
-            File jsonFile = new File("Donald.txt");
-            Scanner fileScanner = new Scanner(jsonFile);
-            todoItem = null;
-            while (fileScanner.hasNext()) {
-                String currentLine = fileScanner.nextLine();
-                System.out.println(currentLine);
-                todoItem = jsonDeserialize(currentLine);
-            }
-            return todoItem;
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-        System.out.println("File read");
-        return null;
-    }
-
-    public ToDoItem jsonDeserialize(String jsonTD) {
-        JsonParser ToDoItemParser = new JsonParser();
-        ToDoItem item = ToDoItemParser.parse(jsonTD, ToDoItem.class);
-
-        return item;
-    }
-
     public void writeToFile() {
         FileWriter writeToFile = null;
         try {
@@ -211,26 +151,6 @@ public class Controller implements Initializable {
             }
         }
     }
-
-
-//    public void saveList() {
-//        try {
-//
-//            // write JSON
-//            JsonSerializer jsonSerializer = new JsonSerializer().deep(true);
-//            String jsonString = jsonSerializer.serialize(new ToDoItemList(todoItems));
-//
-//            System.out.println("JSON = ");
-//            System.out.println(jsonString);
-//
-//            File sampleFile = new File(fileName);
-//            FileWriter jsonWriter = new FileWriter(sampleFile);
-//            jsonWriter.write(jsonString);
-//            jsonWriter.close();
-//        } catch (Exception exception) {
-//            exception.printStackTrace();
-//        }
-//    }
 
     public ToDoContainer retrieveList() {
         try {
