@@ -41,20 +41,12 @@ public class Controller implements Initializable {
         System.out.println("What is your name?");
 
         myUsers.setUserName(userInput.nextLine());
-        System.out.println(myUsers.getUserName() + " username set");
-
-        System.out.println("Name Entered");
 
         if (myUsers.getUserName() != null) {
             fileName = myUsers.getUserName() + ".json";
         }
 
-        System.out.println(myUsers.getUserName());
-        System.out.println("If statement reached");
-
         retrieveList();
-
-        System.out.println("For loop ran through");
 
         todoList.setItems(todoItems);
     }
@@ -63,7 +55,6 @@ public class Controller implements Initializable {
         System.out.println("Adding item ...");
         todoItems.add(new ToDoItem(todoText.getText()));/*todoItems object of type observable list*/
         todoText.setText("");
-        System.out.println(todoText.getText());
         writeToFile();
     }
 
@@ -154,17 +145,14 @@ public class Controller implements Initializable {
 
     public ToDoContainer retrieveList() {
         try {
-            System.out.println("Start to return");
             File myFile = new File(myUsers.getUserName() + ".json");
             Scanner fileScanner = new Scanner(myFile);
             String fileContents = fileScanner.next();
             JsonParser toDoItemParser = new JsonParser();
-            System.out.println("still returning");
             if (fileContents == null) {
                 container = new ToDoContainer();
             } else {
                 container = toDoItemParser.parse(fileContents, ToDoContainer.class);
-                System.out.println("in the midst of retreiving");
 
                 for (ToDoItem item : container.ToDoContainer) {
                    boolean thisItem = item.done;
@@ -172,10 +160,8 @@ public class Controller implements Initializable {
                     todoItems.add(new ToDoItem(stringItem, thisItem));
                 }
             }
-            System.out.println("should have returned");
         } catch (IOException exception) {
             exception.printStackTrace();
-            System.out.println("didn't return");
             return null;
         }
         return container;
